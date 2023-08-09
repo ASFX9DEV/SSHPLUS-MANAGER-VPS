@@ -8,11 +8,11 @@ Criar usuários com TOKEN ID
 Basta criar um usuário e escolher se deseja
 Criar com token id ou somente ssh
 
-# SSHPLUS
+# SSHPLUS-MANAGER-VPS
 
-apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Plus && chmod 777 Plus && ./Plus
+apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Plus && chmod 777 Plus && ./Plus
 
 # Acesso Root
 
-wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/senharoot.sh && chmod 777 senharoot.sh && ./senharoot.sh
-# SSHPLUS
+wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/senharoot.sh && chmod 777 senharoot.sh && ./senharoot.sh
+# SSHPLUS-MANAGER-VPS

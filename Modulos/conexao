@@ -18,7 +18,7 @@ SCOLOR='\033[0m'
 		comando[1]="$2"
 		(
 			[[ -e $HOME/fim ]] && rm $HOME/fim
-			[[ ! -d /etc/SSHPlus ]] && rm -rf /bin/menu
+			[[ ! -d /etc/SSHPLUS-MANAGER-VPS ]] && rm -rf /bin/menu
 			${comando[0]} >/dev/null 2>&1
 			${comando[1]} >/dev/null 2>&1
 			touch $HOME/fim
@@ -59,7 +59,7 @@ SCOLOR='\033[0m'
 			slowdns
 		} || {
 			cd $HOME
-			wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Slowdns/install -o /dev/null
+			wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Slowdns/install -o /dev/null
 			chmod 777 install
 			./install
 		}
@@ -166,7 +166,7 @@ SCOLOR='\033[0m'
 				acl url1 dstdomain -i 127.0.0.1
 				acl url2 dstdomain -i localhost
 				acl url3 dstdomain -i $ipdovps
-				acl url4 dstdomain -i /SSHPLUS?
+				acl url4 dstdomain -i /SSHPLUS-MANAGER-VPS?
 				acl payload url_regex -i "$var_pay"
 				acl all src 0.0.0.0/0
 
@@ -185,7 +185,7 @@ SCOLOR='\033[0m'
 			done
 			cat <<-EOF >>$var_sqd
 				#Nome squid
-				visible_hostname SSHPLUS 
+				visible_hostname SSHPLUS-MANAGER-VPS 
 				via off
 				forwarded_for off
 				pipeline_prefetch off
@@ -476,7 +476,7 @@ SCOLOR='\033[0m'
 	fun_v2rayins() {
 		clear
 		v2rayinst() {
-			source <(curl -sL https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Modulos/v2ray)
+			source <(curl -sL https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Modulos/v2ray)
 			sleep 6
 		}
 		if netstat -tunlp | grep v2ray 1>/dev/null 2>/dev/null; then
@@ -795,9 +795,9 @@ SCOLOR='\033[0m'
 				cd /etc/stunnel/
 				rm -rf stunnel.conf
 				rm -rf stunnel.pem
-				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Install/cert
-				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Install/key
-				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS/main/Install/stunnel
+				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Install/cert
+				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Install/key
+				wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Install/stunnel
 				mv cert cert.pem
 				mv key key.pem
 				mv stunnel stunnel.conf
@@ -1299,9 +1299,9 @@ SCOLOR='\033[0m'
 			# Adquirindo easy-rsa
 			echo ""
 			fun_dep() {
-				wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/abraaosantobmx/SSHPLUS/raw/main/Install/EasyRSA-3.0.1.tgz"
+				wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/raw/main/Install/EasyRSA-3.0.1.tgz"
 				[[ ! -e $HOME/EasyRSA-3.0.1.tgz ]] && {
-					wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/abraaosantobmx/SSHPLUS/raw/main/Install/EasyRSA-3.0.1.tgz"
+					wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/raw/main/Install/EasyRSA-3.0.1.tgz"
 				}
 				tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
 				mv ~/EasyRSA-3.0.1/ /etc/openvpn/
@@ -1313,7 +1313,7 @@ SCOLOR='\033[0m'
 				./easyrsa --batch build-ca nopass
 				./easyrsa gen-dh
 				./easyrsa build-server-full server nopass
-				./easyrsa build-client-full SSHPLUS nopass
+				./easyrsa build-client-full SSHPLUS-MANAGER-VPS nopass
 				./easyrsa gen-crl
 				cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
 				chown nobody:$GROUPNAME /etc/openvpn/crl.pem
@@ -1471,7 +1471,7 @@ exit 0' >$RCLOCAL
 				float
 			EOF
 			# gerar client.ovpn
-			newclient "SSHPLUS"
+			newclient "SSHPLUS-MANAGER-VPS"
 			[[ "$(netstat -nplt | grep -wc 'openvpn')" != '0' ]] && echo -e "\n\033[1;32mOPENVPN INSTALADO COM SUCESSO\033[0m" || echo -e "\n\033[1;31mERRO ! A INSTALACAO CORROMPEU\033[0m"
 		}
 		sed -i '$ i\echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
@@ -1548,12 +1548,12 @@ exit 0' >$RCLOCAL
 				verif_ptrs $porta
 				fun_inisocks() {
 					sleep 1
-					screen -dmS proxy python /etc/SSHPlus/proxy.py $porta
+					screen -dmS proxy python /etc/SSHPLUS-MANAGER-VPS/proxy.py $porta
 					[[ $(grep -wc "proxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPlus/proxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPLUS-MANAGER-VPS/proxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/proxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPlus/proxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPLUS-MANAGER-VPS/proxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1603,12 +1603,12 @@ exit 0' >$RCLOCAL
 				verif_ptrs $porta
 				fun_iniwssocks() {
 					sleep 1
-					screen -dmS ws python /etc/SSHPlus/wsproxy.py $porta
+					screen -dmS ws python /etc/SSHPLUS-MANAGER-VPS/wsproxy.py $porta
 					[[ $(grep -wc "wsproxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/SSHPlus/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/SSHPLUS-MANAGER-VPS/wsproxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/wsproxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/SSHPlus/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/SSHPLUS-MANAGER-VPS/wsproxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1658,17 +1658,17 @@ exit 0' >$RCLOCAL
 				verif_ptrs $porta
 				fun_inisocksop() {
 					[[ "$(netstat -tlpn | grep 'openvpn' | wc -l)" != '0' ]] && {
-						listoldop=$(grep -w 'DEFAULT_HOST =' /etc/SSHPlus/open.py | cut -d"'" -f2 | cut -d: -f2)
+						listoldop=$(grep -w 'DEFAULT_HOST =' /etc/SSHPLUS-MANAGER-VPS/open.py | cut -d"'" -f2 | cut -d: -f2)
 						listopen=$(netstat -tlpn | grep -w openvpn | grep -v 127.0.0.1 | awk {'print $4'} | cut -d: -f2)
-						sed -i "s/$listoldop/$listopen/" /etc/SSHPlus/open.py
+						sed -i "s/$listoldop/$listopen/" /etc/SSHPLUS-MANAGER-VPS/open.py
 					}
 					sleep 1
-					screen -dmS openpy python /etc/SSHPlus/open.py $porta
+					screen -dmS openpy python /etc/SSHPLUS-MANAGER-VPS/open.py $porta
 					[[ $(grep -wc "open.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPlus/open.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPLUS-MANAGER-VPS/open.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/open.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPlus/open.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPLUS-MANAGER-VPS/open.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1703,7 +1703,7 @@ exit 0' >$RCLOCAL
 				echo ""
 				abrirptsks() {
 					sleep 1
-					screen -dmS proxy python /etc/SSHPlus/proxy.py $porta
+					screen -dmS proxy python /etc/SSHPLUS-MANAGER-VPS/proxy.py $porta
 					sleep 1
 				}
 				fun_bar 'abrirptsks'
@@ -1720,7 +1720,7 @@ exit 0' >$RCLOCAL
 		elif [[ "$resposta" = '5' ]]; then
 			if ps x | grep -w proxy.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				clear
-				msgsocks=$(cat /etc/SSHPlus/proxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
+				msgsocks=$(cat /etc/SSHPLUS-MANAGER-VPS/proxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
 				echo -e "\E[44;1;37m             PROXY SOCKS              \E[0m"
 				echo ""
 				echo -e "\033[1;33mSTATUS: \033[1;32m$msgsocks"
@@ -1775,11 +1775,11 @@ exit 0' >$RCLOCAL
 					cor_sts='null'
 				fi
 				fun_msgsocks() {
-					msgsocks2=$(cat /etc/SSHPlus/proxy.py | grep "MSG =" | awk -F = '{print $2}')
-					sed -i "s/$msgsocks2/ '$msgg'/g" /etc/SSHPlus/proxy.py
+					msgsocks2=$(cat /etc/SSHPLUS-MANAGER-VPS/proxy.py | grep "MSG =" | awk -F = '{print $2}')
+					sed -i "s/$msgsocks2/ '$msgg'/g" /etc/SSHPLUS-MANAGER-VPS/proxy.py
 					sleep 1
-					cor_old=$(grep 'color=' /etc/SSHPlus/proxy.py | cut -d '"' -f2)
-					sed -i "s/\b$cor_old\b/$cor_sts/g" /etc/SSHPlus/proxy.py
+					cor_old=$(grep 'color=' /etc/SSHPLUS-MANAGER-VPS/proxy.py | cut -d '"' -f2)
+					sed -i "s/\b$cor_old\b/$cor_sts/g" /etc/SSHPLUS-MANAGER-VPS/proxy.py
 				}
 				echo ""
 				echo -e "\033[1;32mALTERANDO STATUS!"
@@ -1794,7 +1794,7 @@ exit 0' >$RCLOCAL
 						screen -wipe >/dev/null
 						_Ptsks="$(cat /tmp/Pt_sks)"
 						sleep 1
-						screen -dmS proxy python /etc/SSHPlus/proxy.py $_Ptsks
+						screen -dmS proxy python /etc/SSHPLUS-MANAGER-VPS/proxy.py $_Ptsks
 						rm /tmp/Pt_sks
 					fi
 				}
@@ -1815,7 +1815,7 @@ exit 0' >$RCLOCAL
 		elif [[ "$resposta" = '6' ]]; then
 			if ps x | grep -w wsproxy.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				clear
-				msgsocks=$(cat /etc/SSHPlus/wsproxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
+				msgsocks=$(cat /etc/SSHPLUS-MANAGER-VPS/wsproxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
 				echo -e "\E[44;1;37m             WEBSOCKET              \E[0m"
 				echo ""
 				echo -e "\033[1;33mSTATUS: \033[1;32m$msgsocks"
@@ -1870,11 +1870,11 @@ exit 0' >$RCLOCAL
 					cor_sts='null'
 				fi
 				fun_msgsocks() {
-					msgsocks2=$(cat /etc/SSHPlus/wsproxy.py | grep "MSG =" | awk -F = '{print $2}')
-					sed -i "s/$msgsocks2/ '$msgg'/g" /etc/SSHPlus/wsproxy.py
+					msgsocks2=$(cat /etc/SSHPLUS-MANAGER-VPS/wsproxy.py | grep "MSG =" | awk -F = '{print $2}')
+					sed -i "s/$msgsocks2/ '$msgg'/g" /etc/SSHPLUS-MANAGER-VPS/wsproxy.py
 					sleep 1
-					cor_old=$(grep 'color=' /etc/SSHPlus/wsproxy.py | cut -d '"' -f2)
-					sed -i "s/\b$cor_old\b/$cor_sts/g" /etc/SSHPlus/wsproxy.py
+					cor_old=$(grep 'color=' /etc/SSHPLUS-MANAGER-VPS/wsproxy.py | cut -d '"' -f2)
+					sed -i "s/\b$cor_old\b/$cor_sts/g" /etc/SSHPLUS-MANAGER-VPS/wsproxy.py
 				}
 				echo ""
 				echo -e "\033[1;32mALTERANDO STATUS!"
@@ -1889,7 +1889,7 @@ exit 0' >$RCLOCAL
 						screen -wipe >/dev/null
 						_Ptwssks="$(cat /tmp/Pt_wssks)"
 						sleep 1
-						screen -dmS ws python /etc/SSHPlus/wsproxy.py $_Ptwssks
+						screen -dmS ws python /etc/SSHPLUS-MANAGER-VPS/wsproxy.py $_Ptwssks
 						rm /tmp/Pt_wssks
 					fi
 				}
@@ -2045,7 +2045,7 @@ exit 0' >$RCLOCAL
 	x="ok"
 	fun_conexao() {
 		while true $x != "ok"; do
-			[[ ! -e '/home/sshplus' ]] && exit 0
+			[[ ! -e '/home/SSHPLUS-MANAGER-VPS' ]] && exit 0
 			clear
 			echo -e "\E[44;1;37m                MODO DE CONEXAO                 \E[0m\n"
 			echo -e "\033[1;32mSERVICO: \033[1;33mOPENSSH \033[1;32mPORTA: \033[1;37m$(grep 'Port' /etc/ssh/sshd_config | cut -d' ' -f2 | grep -v 'no' | xargs)" && sts6="\033[1;32m◉ "
