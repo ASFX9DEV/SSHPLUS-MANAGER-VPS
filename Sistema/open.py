@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # encoding: utf-8
-# SSHPLUS-MANAGER-VPS MOD @NEWSSHOFC
+# SSHPLUS-MANAGER-VPS MOD @ASFX9DEV
 import socket, threading, thread, select, signal, sys, time
 from os import system
 system("clear")

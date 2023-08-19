@@ -3,8 +3,8 @@
 #	SCRIPT: BOTSSH SSHPLUS-MANAGER-VPS MANAGER
 #	DESENVOLVIDO POR:	 
 #	
-#   MOD @NEWSSHOFC
-#	CANAL TELEGRAM:	http://t.me/ALLSOURCESBR_OFC
+#   MOD @ASFX9DEV
+#   CANAL TELEGRAM:	http://t.me/ALLSOURCESBR_OFC
 #====================================================
 clear
 fun_bar() {
@@ -50,7 +50,7 @@ fun_botOnOff() {
         		wget -qO- SSHPLUS-MANAGER-VPS.xyz/script/ShellBot.sh > /etc/SSHPLUS-MANAGER-VPS/ShellBot.sh
         	}
             [[ ! -e "/etc/SSHPLUS-MANAGER-VPS/ShellBot.sh" ]] && {
-				wget -qO- https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Install/ShellBot.sh >/etc/SSHPLUS-MANAGER-VPS/ShellBot.sh
+				wget -qO- https://raw.githubusercontent.com/ASFX9DEV/SSHPLUS-MANAGER-VPS/main/Install/ShellBot.sh >/etc/SSHPLUS-MANAGER-VPS/ShellBot.sh
 			}
             cd /etc/SSHPLUS-MANAGER-VPS
             screen -dmS bot_plus ./bot $tokenbot $iduser >/dev/null 2>&1

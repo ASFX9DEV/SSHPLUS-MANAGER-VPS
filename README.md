@@ -10,9 +10,9 @@ Criar com token id ou somente ssh
 
 # SSHPLUS-MANAGER-VPS
 
-apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/Plus && chmod 777 Plus && ./Plus
+apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/ASFX9DEV/SSHPLUS-MANAGER-VPS/main/Plus && chmod 777 Plus && ./Plus
 
 # Acesso Root
 
-wget https://raw.githubusercontent.com/abraaosantobmx/SSHPLUS-MANAGER-VPS/main/senharoot.sh && chmod 777 senharoot.sh && ./senharoot.sh
+wget https://raw.githubusercontent.com/ASFX9DEV/SSHPLUS-MANAGER-VPS/main/senharoot.sh && chmod 777 senharoot.sh && ./senharoot.sh
 # SSHPLUS-MANAGER-VPS
